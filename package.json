@@ -1,0 +1,13 @@
+{
+  "name": "apidocgenerator",
+  "version": "1.0.0",
+  "description": "Tools to generate html page (api definition)",
+  "author": "Maxime Guedj",
+  "license": "ISC",
+  "dependencies": {
+    "html": "0.0.10",
+    "jade": "^1.11.0",
+    "js-yaml": "^3.5.2",
+    "ncp": "^2.0.0"
+  }
+}

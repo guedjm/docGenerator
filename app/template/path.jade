@@ -1,0 +1,17 @@
+if me.type == "group"
+    div(class="path-group")
+        div(class="path-group-desc")
+            h2(id="#{me.id}") !{me.name}
+            p !{me.description}
+
+        each val in me.paths
+            div(class="paragraph") !{val.render(doc)}
+
+        each val in me.methods
+            div(class="paragraph") !{val.render(doc, me.name)}
+
+else
+    p(id="#{me.id}")
+        each val in me.methods
+            div(class="paragraph") !{val.render(doc, me.name)}
+

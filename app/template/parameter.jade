@@ -1,0 +1,11 @@
+tr
+    td !{me.name}
+    td !{me.description}
+    td !{me.required.toString()}
+    td !{me.in}
+    if (me.type == "string" || me.type == "int" || me.type == "bool")
+        td !{me.type}
+    else
+        - var obj = doc.getObject(me.type);
+        td
+            a(href="#{obj.id}") !{obj.name}

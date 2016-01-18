@@ -1,0 +1,12 @@
+li
+    a(href="##{me.method}_#{url}")
+        if (me.method == "get")
+            - var lbl = "label-primary"
+        else if (me.method == "post")
+            - var lbl = "label-success"
+        else if (me.method == "patch")
+            - var lbl = "label-warning"
+        else if (me.method == "delete")
+            - var lbl = "label-danger"
+        span(class="label #{lbl}") !{me.method.toUpperCase()}
+        span(class="sidebar-nav-url") !{url}

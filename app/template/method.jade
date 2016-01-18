@@ -1,0 +1,71 @@
+if (me.method == "get")
+    - var panel = "panel-primary"
+else if (me.method == "post")
+    - var panel = "panel-success"
+else if (me.method == "patch")
+    - var panel = "panel-warning"
+else if (me.method == "delete")
+    - var panel = "panel-danger"
+
+div(id="#{me.method}_#{url}" class="panel #{panel}")
+    div(class="panel-heading")
+        div(class="row")
+            div(class="col-sm-5") !{me.method.toUpperCase()} !{url}
+            div(class="col-sm-7 tag-line")
+                each val in me.tags
+                    - var t = doc.getTagUrl(val);
+                    div(class="label #{t.color} tag")
+                        a(href="#{t.value}" style="color: white;") #{val}
+
+    div(class="panel-body")
+
+        div(class="method-summary method-component") !{me.summary}
+
+        div(class="method-description method-component") !{me.description}
+
+        div(class="method-component")
+            h3 Parameters
+            table(class="table table-striped")
+                thead
+                    tr
+                        th Name
+                        th Description
+                        th Required
+                        th In
+                        th Schema
+                tbody
+                    each val in me.parameters
+                        div !{val.render(doc)}
+
+        div(class="method-component")
+            h3 Responses
+            table(class="table table-striped")
+                thead
+                    tr
+                        th Http Status Code
+                        th Description
+                        th Schema
+                tbody
+                    each val in me.responses
+                        div !{val.render(doc)}
+
+
+        div(class="")
+            h3 Errors
+            table(class="table table-striped")
+                thead
+                    tr
+                        th HTTP status
+                        th Code
+                        th SubCode
+                        th Message
+                        th Comment
+                tbody
+                    each val in me.errors
+                        - var err = doc.getError(val);
+                        tr
+                            th(class="response-error") #{err.status}
+                            td #{err.code}
+                            td #{err.subCode}
+                            td #{err.message}
+                            td #{err.fix}

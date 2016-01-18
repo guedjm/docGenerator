@@ -1,0 +1,83 @@
+
+info:
+  title: Roadtripper API Documentation
+  name: Roadtripper API
+
+paragraphs:
+  - name: Introduction
+    id: intro
+    text: "This is the introduction {{linkBg:paths_auth}} b"
+
+  - name: Security
+    id: security
+    text: "This is the security introduction"
+    paragraphs:
+      - name: Client Auth
+        id: client_auth
+        text: "Client auth explanation"
+
+      - name: User Auth
+        id: user_auth
+        text: "User auth explanation"
+
+tags:
+  - name: Client Auth
+    value: "{{:client_auth}}"
+  - name: User Auth
+    value: "{{:user_auth}}"
+
+
+paths:
+  - name: Auth
+    id: paths_auth
+    type: group
+    description: "All user path will be here"
+    paths:
+      - name: /v1/auth/login
+        id: paths_auth_login
+        type: url
+        methods:
+          - method: get
+            summary: Login the user and reply a accessToken
+            description: This operation register the user if it is the first time he use the application.
+            tags:
+              - Client Auth
+              - User Auth
+            parameters:
+              - name: facebookToken
+                description: "The facebook access token"
+                required: true
+                in: body
+                type: string
+            responses:
+              - status: 200
+                description: Operation succeed
+                type: string
+
+              - status: 400
+                description: Invalid request
+                type: obj_error
+
+              - status: 401
+                description: Unauthorized request
+                type: obj_error
+            errors:
+              - error_client_auth
+
+errors:
+  - id: error_client_auth
+    status: 401
+    code: 1
+    subcode: 1
+    message: "Request need to be authorized by Client Auth (check documentation for more details)"
+    fix: "See Client Auth paragraph"
+
+objects:
+  - id: obj_error
+    name: Error
+    description: Error object
+    obj:
+      error:
+        errorCode: 0
+        errorSubCode: 0
+        message: ""

@@ -1,0 +1,22 @@
+li
+    if (me.type == "group")
+        a(href="##{me.id}") !{me.name}
+
+        if (me.paths.length > 0)
+            ul
+                each val in me.paths
+                    span !{val.renderMenu()}
+
+                each val in me.methods
+                    div !{val.renderMenu(me.name)}
+        else
+            if (me.methods.length > 0)
+                ul
+                    each val in me.methods
+                        div !{val.renderMenu(me.name)}
+
+    else
+        if (me.methods.length > 0)
+            ul
+                each val in me.methods
+                    div !{val.renderMenu(me.name)}

@@ -1,0 +1,15 @@
+if (me.status >= 200 && me.status < 300)
+    - var statusClass = "response-ok"
+else
+    - var statusClass = "response-error"
+
+tr
+    th(class="#{statusClass}") !{me.status}
+    td !{me.description}
+
+    if (me.type == "string" || me.type == "int" || me.type == "bool")
+        td !{me.type}
+    else
+        - var obj = doc.getObject(me.type);
+        td
+            a(href="##{obj.id}") !{obj.name}

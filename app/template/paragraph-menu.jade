@@ -1,0 +1,7 @@
+li
+    a(href="##{id}") !{name}
+
+    if (paragraphs.length > 0)
+        ul
+            each val in paragraphs
+                span !{val.renderMenu()}
