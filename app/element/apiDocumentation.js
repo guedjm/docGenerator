@@ -1,4 +1,5 @@
-var fs = require('fs');
+var fs = require(__base + 'myfs');
+var rfs = require('fs');
 var htmll = require('html');
 var yaml = require('js-yaml');
 var jade = require('jade');
@@ -22,17 +23,17 @@ var apiDescription = function () {
 apiDescription.prototype.parseFile = function (file, version) {
 
   try {
-    var f = fs.readFileSync(file, 'utf8');
+    var f = rfs.readFileSync(file, 'utf8');
     var obj = yaml.safeLoad(f);
 
     console.log('Parsing file ' + file + ' ...');
     this.info.version = version;
-    this.parseJSON(obj);
+    return this.parseJSON(obj);
   }
   catch (e) {
     console.error('Error while parsing yaml file: ');
     console.error(e.message);
-    this.error = true;
+    return false;
   }
 };
 
@@ -85,6 +86,8 @@ apiDescription.prototype.parseJSON = function (json) {
   this.tags.forEach(function (elem, i, a) {
     elem.resolve(i);
   });
+
+  return true;
 };
 
 apiDescription.prototype.print = function () {
@@ -153,80 +156,15 @@ apiDescription.prototype.getError = function (errorId) {
 };
 
 
-apiDescription.prototype.getHtml= function () {
-
-  var html = "";
-
-  this.tags.forEach(function (elem, i, a) {
-    elem.resolve();
-  });
-
-  this.paragraphs.forEach(function (elem, i, a) {
-    html = elem.getHtml(this, html, 1);
-  }, this);
-
-  html = this.getPathHtml(html);
-  html = this.getObjectHtml(html);
-  html = this.getErrorHtml(html);
-  return htmll.prettyPrint(html);
-};
-
-apiDescription.prototype.getPathHtml = function (html) {
-
-  html += "<p><h1>API Reference</h1>";
-
-  this.paths.forEach(function (elem, i, a) {
-    html = elem.getHtml(this, html, 2);
-  }, this);
-
-  html += "</p>";
-  return html;
-};
-
-apiDescription.prototype.getErrorHtml = function (html) {
-
-  html += "<p><h1>Possible Error response</h1>";
-  html += "<table>" +
-    "<thead>" +
-      "<tr>" +
-        "<th>HTTP status</th>" +
-        "<th>ErrorCode</th>" +
-        "<th>ErrorSubCode</th>" +
-        "<th>Message</th>" +
-        "<th>Comment</th>" +
-      "</tr>" +
-    "</thead>" +
-    "<tbody>";
-
-  this.errors.forEach(function (elem, i, a) {
-    html = elem.getHtml(this, html);
-  }, this);
-  html += "</tbody>" +
-    "</table>" +
-    "</p>";
-
-  return html;
-};
-
-apiDescription.prototype.getObjectHtml = function (html) {
-
-  html += "<p><h1>Objects</h1>";
-
-  this.objects.forEach(function (elem, i, a) {
-    html = elem.getHtml(this, html);
-  }, this);
-  html += "</p>";
-
-  return html;
-};
-
-apiDescription.prototype.render = function() {
+apiDescription.prototype.renderToFile = function(filepath) {
 
   var html = jade.renderFile(__base + 'template/apiDocumentation.jade', {
     me : this
   });
+  var result = htmll.prettyPrint(html);
 
-  return (htmll.prettyPrint(html));
+  fs.createFileDir(filepath);
+  fs.writeFile(filepath, result);
 };
 
 module.exports = apiDescription;
