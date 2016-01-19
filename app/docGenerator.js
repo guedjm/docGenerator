@@ -18,12 +18,14 @@ docGenerator.prototype.generate = function () {
   this.prepareBuildDirectory(function () {
 
     self.saveHtmlResult();
+    self.saveDescription();
     self.saveVersionFile();
   });
 };
 
 docGenerator.prototype.prepareBuildDirectory = function (done) {
 
+  var self = this;
   console.log('Preparing build directory ...');
 
   fs.createFileDir(this.parameters.buildDir);
@@ -34,7 +36,34 @@ docGenerator.prototype.prepareBuildDirectory = function (done) {
       process.exit(1);
     }
     else {
-      done();
+
+      if (fs.fileExist(self.parameters.buildDir + '/v' + self.parameters.version)) {
+
+        var readline = require('readline');
+
+        var rl = readline.createInterface({
+          input: process.stdin,
+          output: process.stdout
+        });
+
+        rl.question('An existing entry exist for the version v' + self.parameters.version + '. Erase directory ? [y/n] ',
+          function (result) {
+
+            if (result == 'y') {
+              fs.deleteDirectory(self.parameters.buildDir + '/v' + self.parameters.version);
+              console.log('Erased');
+              done();
+            }
+            else {
+              console.error('Abort');
+              process.exit(1);
+            }
+            rl.close();
+          });
+      }
+      else {
+        done();
+      }
     }
   });
 };
@@ -57,6 +86,11 @@ docGenerator.prototype.saveHtmlResult = function () {
 
   console.log('Saving html definition ...');
   this.apiDocumentation.renderToFile(this.parameters.buildDir + '/v' + this.parameters.version + '/index.html');
+};
+
+docGenerator.prototype.saveDescription = function () {
+
+  this.apiDocumentation.saveDescrition(this.parameters.buildDir + '/v' + this.parameters.version + '/doc.yaml');
 };
 
 docGenerator.prototype.saveVersionFile = function () {

@@ -27,10 +27,22 @@ versionFile.prototype.loadFile = function (path) {
 };
 
 versionFile.prototype.addVersion = function (version, message) {
-  this.versions.push({
-    version: version,
-    message: message
+
+  var done = false;
+
+  this.versions.forEach(function (entry, i , a) {
+    if (entry.version == version) {
+      entry.message = message;
+      done = true;
+    }
   });
+
+  if (!done) {
+    this.versions.push({
+      version: version,
+      message: message
+    });
+  }
 };
 
 versionFile.prototype.save = function(dest) {

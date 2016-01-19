@@ -57,6 +57,31 @@ function writeFile(filePath, content) {
   }
 }
 
+function deleteFile(filepath) {
+  fs.unlinkSync(filepath);
+}
+
+var deleteDirectory = function(path) {
+
+  if (fs.existsSync(path)) {
+
+    fs.readdirSync(path).forEach(function (file, index) {
+
+      var curPath = path + "/" + file;
+
+      if (fs.lstatSync(curPath).isDirectory()) {
+        deleteDirectory(curPath);
+      } else { // delete file
+        fs.unlinkSync(curPath);
+      }
+    });
+    fs.rmdirSync(path);
+  }
+};
+
+module.exports.fileExist = fileExist;
 module.exports.createFile = createFile;
 module.exports.createFileDir = createFileDir;
 module.exports.writeFile = writeFile;
+module.exports.deleteFile = deleteFile;
+module.exports.deleteDirectory = deleteDirectory;

@@ -13,6 +13,7 @@ var infoElem = require(__base + 'element/info');
 var apiDescription = function () {
   this.error = false;
   this.info = new infoElem();
+  this.json = "";
   this.paragraphs = [];
   this.tags = [];
   this.paths = [];
@@ -23,8 +24,8 @@ var apiDescription = function () {
 apiDescription.prototype.parseFile = function (file, version) {
 
   try {
-    var f = rfs.readFileSync(file, 'utf8');
-    var obj = yaml.safeLoad(f);
+    this.json = rfs.readFileSync(file, 'utf8');
+    var obj = yaml.safeLoad(this.json);
 
     console.log('Parsing file ' + file + ' ...');
     this.info.version = version;
@@ -165,6 +166,10 @@ apiDescription.prototype.renderToFile = function(filepath) {
 
   fs.createFileDir(filepath);
   fs.writeFile(filepath, result);
+};
+
+apiDescription.prototype.saveDescrition = function (filePath) {
+  fs.writeFile(filePath, this.json);
 };
 
 module.exports = apiDescription;

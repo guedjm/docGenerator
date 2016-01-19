@@ -3,6 +3,12 @@ var path = require('path');
 var param = require(__base + 'parameters');
 var docGenerator = require(__base + 'docGenerator');
 
+/*const readline = require('readline');
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});*/
+
 //Checking arguments
 if (process.argv.length != 7) {
   console.error("Usage: ./docgenerator source version_source build_path version message");
