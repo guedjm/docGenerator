@@ -105,6 +105,10 @@ a {
     margin-bottom: 50px;
 }
 
+.big_part {
+    margin-bottom: 70px;
+}
+
 .paragraph {
     padding-left: 15px;
 }
@@ -185,6 +189,11 @@ pre {
     border: 1px solid silver;
     padding: 10px 20px;
     margin: 20px;
+}
+
+.see-all {
+    font-size: 17px;
+    margin-left: 10px;
 }
 
 .json-key {

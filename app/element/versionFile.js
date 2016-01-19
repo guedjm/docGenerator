@@ -1,3 +1,5 @@
+var jade = require('jade');
+var htmll = require('html');
 var fs = require(__base + 'myfs');
 
 var versionFile = function() {
@@ -59,6 +61,18 @@ versionFile.prototype.save = function(dest) {
   }
 
   return res;
+};
+
+versionFile.prototype.renderToFile = function (path, info) {
+
+  var html = jade.renderFile(__base + 'template/version.jade', {
+    me : this,
+    info: info
+  });
+  var result = htmll.prettyPrint(html);
+
+  fs.createFileDir(path);
+  fs.writeFile(path, result);
 };
 
 module.exports = versionFile;

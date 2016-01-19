@@ -2,6 +2,7 @@
 info:
   title: Roadtripper API Documentation
   name: Roadtripper API
+  description: Prout
 
 paragraphs:
   - name: Introduction

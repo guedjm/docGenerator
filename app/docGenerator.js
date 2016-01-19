@@ -86,6 +86,9 @@ docGenerator.prototype.saveHtmlResult = function () {
 
   console.log('Saving html definition ...');
   this.apiDocumentation.renderToFile(this.parameters.buildDir + '/v' + this.parameters.version + '/index.html');
+
+  console.log('Saving html version ...');
+  this.versionFile.renderToFile(this.parameters.buildDir + '/index.html', this.apiDocumentation.info);
 };
 
 docGenerator.prototype.saveDescription = function () {

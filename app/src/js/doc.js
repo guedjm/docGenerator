@@ -1,6 +1,5 @@
-loadVersions();
 
-function loadVersions() {
+function docLoadVersions() {
 
   $.get("../version.json", function (data) {
 
@@ -10,11 +9,13 @@ function loadVersions() {
     data.forEach(function (entry, i, a) {
 
       //Menu
+      var mine = false;
       var text = "";
       var link = null;
 
       if (entry.version == version) {
         text = "<b>v" + entry.version + "</b>";
+        mine = true;
       }
       else {
         text = "v" + entry.version;
@@ -22,7 +23,7 @@ function loadVersions() {
       }
 
       if (i == data.length - 1) {
-        text = "<span class='glyphicon glyphicon-asterisk'></span> " + text;
+        text += "     <span class='glyphicon glyphicon-arrow-left'></span>";
       }
 
       var elem = "<li>";
@@ -38,16 +39,55 @@ function loadVersions() {
 
       //Version part
       var html =
-        "<div class=\"sub_part\">" +
-        "<h2>V " + entry.version + "<h2>" +
+        "<div class=\"sub_part\">";
+      if (mine) {
+        html += "<h2><b>V " + entry.version + "</b><h2>"
+      }
+      else {
+        html += "<h2>V " + entry.version + "<h2>";
+      }
+
+      html +=
         "<pre>" +
         "<code>" + entry.message + "</code>" +
         "</pre>" +
         "</div>";
 
-      versionList.append(elem);
-      versionDesc.prepend(html);
+      versionList.prepend(elem);
+      if (mine) {
+        versionDesc.prepend(html);
+      }
     });
 
+  });
+}
+
+function versionLoadVersions() {
+
+  $.get("../version.json", function (data) {
+
+    var versionDesc = $("#versions");
+
+    data.forEach(function (entry, i, a) {
+
+      //Menu
+      var text = "V " + entry.version;
+      var link = "./v" + entry.version + "/";
+
+      if (i == data.length - 1) {
+        text += "     <span class='glyphicon glyphicon-arrow-left'></span>";
+      }
+
+      //Version part
+      var html =
+        "<div class=\"big_part\">" +
+        "<h2><a href='" + link + "'>" + text + "</a><h2>" +
+        "<pre>" +
+        "<code><br>" + entry.message + "<br><br></code>" +
+        "</pre>" +
+        "</div>";
+
+      versionDesc.prepend(html);
+    });
   });
 }

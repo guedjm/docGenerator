@@ -9,9 +9,10 @@ html
 
         script(src="../js/jquery-1.12.0.min.js")
         script(src="../js/bootstrap.min.js")
+        script(src="../js/doc.js")
         script.
             var version = "#{me.info.version}";
-        script(src="../js/doc.js")
+            docLoadVersions();
 
     body
         header(class="header")
@@ -109,6 +110,7 @@ html
 
                             div(class="part")
                                 h1(id="versions") Versions
+                                    a(href="../" class="see-all") [See all]
                                 hr
 
                                 div(id="versions_description")
