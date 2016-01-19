@@ -22,20 +22,6 @@ error.prototype.print = function () {
   console.log('  - ' + this.id + ' (' + this.status + '/' + this.code + '/' + this.subCode + ')');
 };
 
-error.prototype.getHtml = function (dox, html) {
-
-  html +=
-    "<tr>" +
-      "<th id=\"" + this.id + "\">" + this.status + "</th>" +
-      "<th>" + this.code + "</th>" +
-      "<th>" + this.subCode + "</th>" +
-      "<th>" + this.message + "</th>" +
-      "<th>" + this.fix + "</th>" +
-    "</tr>";
-
-  return html;
-};
-
 error.prototype.render = function (doc) {
   return jade.renderFile(__base + 'template/error.jade', {
     me : this,

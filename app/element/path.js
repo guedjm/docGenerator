@@ -48,34 +48,6 @@ path.prototype.print = function (indent) {
   });
 };
 
-path.prototype.getHtml = function (doc, html, index) {
-
-  if (this.type == "group") {
-    html +=
-      "<p>" +
-        "<h" + index + " id=\"" + this.id + "\">" + this.name + "</h" + index + ">";
-  } else {
-    html +=
-      "<p id=\"" + this.id + "\">";
-  }
-  if (this.description) {
-    html +=
-        "<p>" + this.description + "</p>";
-  }
-
-  this.paths.forEach(function (elem, i, a) {
-    html = elem.getHtml(doc, html, index + 1);
-  });
-
-  this.methods.forEach(function (elem, i, a) {
-    html = elem.getHtml(doc, html, this.name, index);
-  }, this);
-
-  html +=
-    "</p>";
-  return html;
-};
-
 path.prototype.render = function (doc) {
   return jade.renderFile(__base + 'template/path.jade', {
     me : this,

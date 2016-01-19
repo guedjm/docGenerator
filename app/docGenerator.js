@@ -93,7 +93,7 @@ docGenerator.prototype.saveHtmlResult = function () {
 
 docGenerator.prototype.saveDescription = function () {
 
-  this.apiDocumentation.saveDescrition(this.parameters.buildDir + '/v' + this.parameters.version + '/doc.yaml');
+  this.apiDocumentation.saveDescription(this.parameters.buildDir + '/v' + this.parameters.version + '/doc.yaml');
 };
 
 docGenerator.prototype.saveVersionFile = function () {

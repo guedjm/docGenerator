@@ -24,23 +24,6 @@ paragraph.prototype.parseJSON = function(obj) {
   }
 };
 
-paragraph.prototype.getHtml = function (doc, html, index) {
-
-  html +=
-    "<p>" +
-      "<h" + index + " id=\"" + this.id + "\">" + this.name + "</h" + index+">";
-  html +=
-      "<p>" + utils.getHtmlText(this.text) + "</p>";
-
-  this.paragraphs.forEach(function (elem, i , a) {
-    html = elem.getHtml(doc, html, index + 1);
-  });
-  html +=
-    "</p>";
-
-  return html;
-};
-
 paragraph.prototype.print = function (indent) {
 
   console.log(utils.indentText('- ' + this.name + ':', indent));

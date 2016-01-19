@@ -41,7 +41,7 @@ function getUrl(tag) {
   return ("#" + url);
 }
 
-function markdowToHtml(md) {
+function markdownToHtml(md) {
   var res = markdown.toHTML(md);
 
   res = res.replace('<code>', '<pre><code><br>').replace('</code>', '<br><br></code></pre>');
@@ -52,4 +52,4 @@ function markdowToHtml(md) {
 module.exports.indentText = indentText;
 module.exports.getHtmlText= getHtmlText;
 module.exports.getUrl= getUrl;
-module.exports.markdownToHtml = markdowToHtml;
+module.exports.markdownToHtml = markdownToHtml;

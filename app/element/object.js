@@ -19,20 +19,6 @@ object.prototype.print = function () {
   console.log('  ' + JSON.stringify(this.obj, null, 4));
 };
 
-object.prototype.getHtml = function (doc, html) {
-  html +=
-    "<p>" +
-      "<h3 id=\"" + this.id + "\">" + this.name + "</h3>";
-  html +=
-      "<p>" + this.description;
-  html +=
-        "<p>" + JSON.stringify(this.obj, null, 4) + "</p>" +
-      "</p>" +
-    "</p>";
-
-  return html;
-};
-
 object.prototype.render = function (doc) {
   return jade.renderFile(__base + 'template/object.jade', {
     me : this,

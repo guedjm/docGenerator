@@ -168,7 +168,7 @@ apiDescription.prototype.renderToFile = function(filepath) {
   fs.writeFile(filepath, result);
 };
 
-apiDescription.prototype.saveDescrition = function (filePath) {
+apiDescription.prototype.saveDescription = function (filePath) {
   fs.writeFile(filePath, this.json);
 };
 
