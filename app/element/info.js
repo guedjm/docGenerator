@@ -10,7 +10,7 @@ var info = function () {
 info.prototype.parseJSON = function (obj) {
   this.title = obj.title;
   this.name = obj.name;
-  this.description = obj.description;
+  this.description = utils.markdownToHtml(obj.description);
 };
 
 info.prototype.print = function () {

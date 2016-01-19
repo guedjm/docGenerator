@@ -7,14 +7,13 @@ var paragraph = function (index) {
   this.index = index;
   this.text = "";
   this.paragraphs = [];
-  this.testVal = "#[h" + this.index + "(id=" + this.id + ")" + this.name + "]";
 };
 
 paragraph.prototype.parseJSON = function(obj) {
 
   this.name = obj.name;
   this.id = obj.id;
-  this.text = utils.getHtmlText(obj.text);
+  this.text = utils.getHtmlText(utils.markdownToHtml(obj.text));
 
   if (obj.paragraphs) {
     obj.paragraphs.forEach(function (elem, i, a) {

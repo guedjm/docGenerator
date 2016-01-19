@@ -1,3 +1,5 @@
+var markdown = require('markdown').markdown;
+
 
 function indentText(txt, i) {
 
@@ -39,6 +41,15 @@ function getUrl(tag) {
   return ("#" + url);
 }
 
+function markdowToHtml(md) {
+  var res = markdown.toHTML(md);
+
+  res = res.replace('<code>', '<pre><code><br>').replace('</code>', '<br><br></code></pre>');
+
+  return res;
+}
+
 module.exports.indentText = indentText;
 module.exports.getHtmlText= getHtmlText;
 module.exports.getUrl= getUrl;
+module.exports.markdownToHtml = markdowToHtml;

@@ -2,7 +2,16 @@
 info:
   title: Roadtripper API Documentation
   name: Roadtripper API
-  description: Prout
+  description: >
+      ###### Request need to be authenticated by HTTP Basic Authentification
+
+      Simply add your client secret to the HTTP header of your request:
+
+      ```
+
+      Authorization : Basic YOUR_CLIENT_SECRET
+
+      ```
 
 paragraphs:
   - name: Introduction
