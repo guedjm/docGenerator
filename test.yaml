@@ -11,7 +11,7 @@ paragraphs:
   - title: Introduction
     text: >
       Roadtripper API is a REST API, each request use the **HTTP** protocol.;;;
-      Each request paths must be prefixed by the current major version of the api server. Since we are in version **1.-.-**, paths
+      Each request paths (exept {{/ping:get-ping}}) must be prefixed by the current major version of the api server. Since we are in version **1.-.-**, paths
       must be prefixed by **/v1**;;;
       For example, the url of the login request ( {{/auth/login:get-auth-login}} ) is */v1/auth/login*
 
@@ -22,9 +22,8 @@ paragraphs:
     paragraphs:
       - title: Client Auth
         text: >
-          #####Request need to be authenticated by HTTP Basic Authentification
+          Request need to be authenticated by HTTP Basic Authentification. Add your client secret to the HTTP header of your request:
 
-          Simply add your client secret to the HTTP header of your request:
 
           ```
 
@@ -34,9 +33,7 @@ paragraphs:
 
       - title: User Auth
         text: >
-          ##### Request need to bo authenticated by Access token
-
-          Simply add your accessToken to the HTTP header of your request:
+          Request need to bo authenticated by Access token. Add your accessToken to the HTTP header of your request:
 
           ```
 
