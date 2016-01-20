@@ -1,13 +1,15 @@
 if (me.method == "get")
     - var panel = "panel-primary"
 else if (me.method == "post")
-    - var panel = "panel-success"
+    - var panel = "panel-post"
 else if (me.method == "patch")
     - var panel = "panel-warning"
 else if (me.method == "delete")
     - var panel = "panel-danger"
 
-div(id="#{me.method}_#{url}" class="panel #{panel}")
+- var id = url.replace(/\//g, '-');
+
+div(id="#{me.method}#{id}" class="panel #{panel} method-bloc")
     div(class="panel-heading")
         div(class="row")
             div(class="col-sm-5") !{me.method.toUpperCase()} !{url}
@@ -23,49 +25,52 @@ div(id="#{me.method}_#{url}" class="panel #{panel}")
 
         div(class="method-description method-component") !{me.description}
 
-        div(class="method-component")
-            h3 Parameters
-            table(class="table table-striped")
-                thead
-                    tr
-                        th Name
-                        th Description
-                        th Required
-                        th In
-                        th Schema
-                tbody
-                    each val in me.parameters
-                        div !{val.render(doc)}
-
-        div(class="method-component")
-            h3 Responses
-            table(class="table table-striped")
-                thead
-                    tr
-                        th Http Status Code
-                        th Description
-                        th Schema
-                tbody
-                    each val in me.responses
-                        div !{val.render(doc)}
-
-
-        div(class="")
-            h3 Errors
-            table(class="table table-striped")
-                thead
-                    tr
-                        th HTTP status
-                        th Code
-                        th SubCode
-                        th Message
-                        th Comment
-                tbody
-                    each val in me.errors
-                        - var err = doc.getError(val);
+        if (me.parameters.length > 0)
+            div(class="method-component")
+                h3 Parameters
+                table(class="table table-striped")
+                    thead
                         tr
-                            th(class="response-error") #{err.status}
-                            td #{err.code}
-                            td #{err.subCode}
-                            td #{err.message}
-                            td #{err.fix}
+                            th Name
+                            th Description
+                            th Required
+                            th In
+                            th Schema
+                    tbody
+                        each val in me.parameters
+                            div !{val.render(doc)}
+
+        if (me.responses.length > 0)
+            div(class="method-component")
+                h3 Responses
+                table(class="table table-striped")
+                    thead
+                        tr
+                            th Http Status Code
+                            th Description
+                            th Schema
+                    tbody
+                        each val in me.responses
+                            div !{val.render(doc)}
+
+
+        if (me.errors.length > 0)
+            div(class="")
+                h3 Errors
+                table(class="table table-striped")
+                    thead
+                        tr
+                            th HTTP status
+                            th Code
+                            th SubCode
+                            th Message
+                            th Comment
+                    tbody
+                        each val in me.errors
+                            - var err = doc.getError(val);
+                            tr
+                                th(class="response-error") #{err.status}
+                                td !{err.code}
+                                td !{err.subCode}
+                                td !{err.message}
+                                td !{err.fix}

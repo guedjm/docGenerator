@@ -34,8 +34,13 @@ paragraph.prototype.print = function (indent) {
   });
 };
 
-paragraph.prototype.render = function (doc) {
-  return jade.renderFile(__base + 'template/paragraph.jade', this);
+paragraph.prototype.render = function (doc, first) {
+  return jade.renderFile(__base + 'template/paragraph.jade',
+    {
+      me: this,
+      first: first,
+      doc: doc
+    });
 };
 
 paragraph.prototype.renderMenu = function () {

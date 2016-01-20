@@ -10,7 +10,13 @@ var response = function () {
 response.prototype.parseJSON = function (obj) {
   this.status = obj.status;
   this.description = obj.description;
-  this.type = obj.type;
+
+  if (obj.type) {
+    this.type = obj.type;
+  }
+  else {
+    this.type = 'none';
+  }
 };
 
 response.prototype.print = function (indent) {

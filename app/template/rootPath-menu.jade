@@ -1,5 +1,3 @@
-a(href="##{me.id}" class="path-title") !{me.title}
-
 if (me.urls.length > 0)
     table(class="url-table")
         tbody
@@ -8,6 +6,5 @@ if (me.urls.length > 0)
 
 if (me.paths.length > 0)
     ul
-        each val, i in me.paths
+        each val in me.paths
             li(class="path-menu") !{val.renderMenu()}
-

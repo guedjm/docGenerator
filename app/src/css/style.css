@@ -39,6 +39,7 @@ a {
     box-shadow: 1px 0 0 0 #eee inset;
 }
 
+
 .sidebar-nav {
     color: #474a54;
     padding-bottom: 30px;
@@ -76,7 +77,7 @@ a {
 }
 
 .sidebar-nav a {
-    color: #126d7d;
+    color: #666;
     text-decoration: none;
 }
 
@@ -86,7 +87,21 @@ a {
 }
 
 .sidebar-nav-url {
-    padding-right: 7px;
+    padding-left: 7px;
+}
+
+.path-title {
+    color: #bbb!important;
+    font-size: 15px;
+}
+
+.url-table {
+    margin-left: 10px
+}
+
+
+.path-menu {
+    margin-bottom: 15px;
 }
 
 .bloc {
@@ -98,7 +113,7 @@ a {
 }
 
 .part {
-    margin-bottom: 50px;
+    margin-bottom: 100px;
 }
 
 .sub_part {
@@ -110,11 +125,11 @@ a {
 }
 
 .paragraph {
-    padding-left: 15px;
+    margin-top: 50px;
 }
 
 .paragraph-header {
-    margin-bottom: 40px;
+    margin-bottom: 70px;
 }
 
 .doc-content {
@@ -141,7 +156,15 @@ a {
     font-family: ff-clan-web-pro-wide, "Helvetica Neue", Helvetica, sans-serif;
 }
 
+.panel-post {
+    border-color: #6bbd5b;
+}
 
+.panel-post > .panel-heading {
+    color: #FFFFFF;
+    background-color: #6bbd5b;
+    border-color: #6bbd5b;
+}
 
 .tag-line {
     text-align: right;
@@ -149,6 +172,10 @@ a {
 
 .tag {
     margin-right: 5px;
+}
+
+.method-bloc {
+    margin-bottom: 50px;
 }
 
 .method-component {
@@ -173,7 +200,7 @@ a {
 
 
 .path-group {
-    margin-bottom: 25px;
+    margin-bottom: 60px;
 }
 
 .path-group-desc {

@@ -1,10 +1,11 @@
 var jade = require('jade');
+var utils = require(__base + 'utils');
 
 var error = function () {
   this.id = "";
   this.status = "";
   this.code = 0;
-  this.subCode = 1;
+  this.subCode = "";
   this.message = "";
   this.fix = "";
 };
@@ -13,9 +14,14 @@ error.prototype.parseJSON = function (obj) {
   this.id = obj.id;
   this.status = obj.status;
   this.code = obj.code;
-  this.subCode = obj.subcode;
+  if (obj.subcode) {
+    this.subCode = obj.subcode;
+  }
   this.message = obj.message;
-  this.fix = obj.fix;
+
+  if (obj.fix) {
+    this.fix = utils.getHtmlText(utils.markdownToHtml(obj.fix));
+  }
 };
 
 error.prototype.print = function () {

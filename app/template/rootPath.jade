@@ -1,0 +1,7 @@
+each val in me.urls
+    | !{val.render(doc)}
+
+
+each val in me.paths
+    div(class="path-group") !{val.render(doc)}
+

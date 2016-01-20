@@ -1,4 +1,5 @@
 var jade = require('jade');
+var utils = require(__base + 'utils');
 
 var object = function () {
   this.id = "";
@@ -10,7 +11,9 @@ var object = function () {
 object.prototype.parseJSON = function (obj) {
   this.id = obj.id;
   this.name = obj.name;
-  this.description = obj.description;
+  if (obj.description) {
+    this.description = utils.getHtmlText(utils.markdownToHtml(obj.description));
+  }
   this.obj = obj.obj;
 };
 

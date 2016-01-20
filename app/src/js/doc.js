@@ -40,16 +40,12 @@ function docLoadVersions() {
       //Version part
       var html =
         "<div class=\"sub_part\">";
-      if (mine) {
-        html += "<h2><b>V " + entry.version + "</b><h2>"
-      }
-      else {
-        html += "<h2>V " + entry.version + "<h2>";
-      }
+      html += "<h2>V " + entry.version + "<h2>";
+
 
       html +=
         "<pre>" +
-        "<code>" + entry.message + "</code>" +
+        "<code><br/>" + entry.message + "<br/><br/></code>" +
         "</pre>" +
         "</div>";
 

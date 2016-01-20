@@ -16,7 +16,9 @@ var method = function () {
 method.prototype.parseJSON = function (obj) {
   this.method = obj.method;
   this.summary = utils.getHtmlText(utils.markdownToHtml(obj.summary));
-  this.description = utils.getHtmlText(utils.markdownToHtml(obj.description));
+  if (obj.description) {
+    this.description = utils.getHtmlText(utils.markdownToHtml(obj.description));
+  }
 
   if (obj.tags) {
     obj.tags.forEach(function (elem, i, a) {

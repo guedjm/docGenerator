@@ -5,7 +5,7 @@ var yaml = require('js-yaml');
 var jade = require('jade');
 var paragraphElem = require(__base + 'element/paragraph');
 var tagElem = require(__base + 'element/tag');
-var pathElem = require(__base + 'element/path');
+var rootPathElem = require(__base + 'element/rootPath');
 var errorElem = require(__base + 'element/error');
 var objElem = require(__base + 'element/object');
 var infoElem = require(__base + 'element/info');
@@ -16,7 +16,7 @@ var apiDescription = function () {
   this.json = "";
   this.paragraphs = [];
   this.tags = [];
-  this.paths = [];
+  this.rootPath = new rootPathElem();
   this.errors = [];
   this.objects = [];
 };
@@ -34,6 +34,7 @@ apiDescription.prototype.parseFile = function (file, version) {
   catch (e) {
     console.error('Error while parsing yaml file: ');
     console.error(e.message);
+    console.error(e.stack);
     return false;
   }
 };
@@ -61,11 +62,7 @@ apiDescription.prototype.parseJSON = function (json) {
   }
 
   if (json.paths) {
-    json.paths.forEach(function (elem, i, a) {
-      var path = new pathElem();
-      path.parseJSON(elem);
-      this.paths.push(path);
-    }, this)
+    this.rootPath.parseJSON(json.paths);
   }
 
   if (json.errors) {

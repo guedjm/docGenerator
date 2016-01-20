@@ -1,23 +1,21 @@
 var jade = require('jade');
 var utils = require(__base + 'utils');
-var methodElem = require(__base + 'element/method');
+var urlElem = require(__base + 'element/url');
 
 var path = function () {
-  this.name = "";
+  this.title = "";
   this.id = "";
-  this.type = "";
   this.description = "";
   this.paths = [];
-  this.methods = [];
+  this.urls = [];
 };
 
 path.prototype.parseJSON = function (obj) {
-  this.name = obj.name;
+  this.title = obj.title;
   this.id = obj.id;
-  this.type = obj.type;
   this.description = obj.description;
 
-  if (this.type == "group" && obj.paths) {
+  if (obj.paths) {
     obj.paths.forEach(function (elem, i, a) {
       var subPath = new path();
       subPath.parseJSON(elem);
@@ -25,27 +23,14 @@ path.prototype.parseJSON = function (obj) {
     }, this);
   }
 
-  if (this.type == "url" && obj.methods) {
+  if (obj.urls) {
 
-    obj.methods.forEach(function (elem, i, a) {
-      var method = new methodElem();
-      method.parseJSON(elem);
-      this.methods.push(method);
+    obj.urls.forEach(function (elem, i, a) {
+      var u = new urlElem();
+      u.parseJSON(elem);
+      this.urls.push(u);
     }, this);
   }
-};
-
-path.prototype.print = function (indent) {
-
-  console.log(utils.indentText('- ' + this.name, indent));
-
-  this.paths.forEach(function (elem, i, a) {
-    elem.print(indent + 2);
-  });
-
-  this.methods.forEach(function (elem, i, a) {
-    elem.print(indent + 2);
-  });
 };
 
 path.prototype.render = function (doc) {

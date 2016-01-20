@@ -13,11 +13,11 @@ function indentText(txt, i) {
 
 function getHtmlText(text) {
 
-  var done = (text.match("{{[a-zA-Z_]*:[a-zA-Z_]*}}") == null);
+  var done = (text.match(/{{[a-zA-Z1-9 -_\/]*:[a-zA-Z1-9 -_\/]*}}/g) == null);
 
   while (!done) {
-    var res = text.match("{{[a-zA-Z_]*:[a-zA-Z_]*}}");
-    var link = res[0].replace('{{', '').replace('}}', '');
+    var res = text.match(/{{[a-zA-Z1-9 -_\/]*:[a-zA-Z1-9 -_\/]*}}/g);
+    var link = res[0].replace(/{{/g, '').replace(/}}/g, '');
     var pLink = link.split(':');
     var txt = pLink[0];
     var url = pLink[1];
@@ -27,14 +27,14 @@ function getHtmlText(text) {
     }
     var rep = "<a href=\"" + url + "\">" + txt + "</a>";
     text = text.replace(res[0], rep);
-    done = (text.match("{{[a-zA-Z]*:[a-zA-Z]*}}") == null);
+    done = (text.match(/{{[a-zA-Z1-9 -_\/]*:[a-zA-Z1-9 -_\/]*}}/g) == null);
   }
   return (text);
 }
 
 function getUrl(tag) {
 
-  var link = tag.replace('{{', '').replace('}}', '');
+  var link = tag.replace(/{{/g, '').replace(/}}/g, '');
   var pLink = link.split(':');
   var url = pLink[1];
 
@@ -44,7 +44,7 @@ function getUrl(tag) {
 function markdownToHtml(md) {
   var res = markdown.toHTML(md);
 
-  res = res.replace('<code>', '<pre><code><br>').replace('</code>', '<br><br></code></pre>');
+  res = res.replace(/<code>/g, '<pre><code><br>').replace(/<\/code>/g, '<br><br></code></pre>').replace(/;;;/g, "<br/>");
 
   return res;
 }

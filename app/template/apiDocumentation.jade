@@ -38,9 +38,8 @@ html
                             div(class="bloc")
                                 a(href="#api")
                                     h4 API Reference
-                                ul
-                                    each val in me.paths
-                                        div !{val.renderMenu()}
+
+                                div !{me.rootPath.renderMenu(me)}
 
                             div(class="bloc")
                                 a(href="#obj")
@@ -73,14 +72,14 @@ html
                                 hr
 
                                 each val in me.paragraphs
-                                    div(class="paragraph-header") !{val.render(me)}
+                                    div(class="paragraph-header") !{val.render(me, true)}
 
                             div(class="part")
                                 h1(id="api") API Reference
                                 hr
 
-                                each val in me.paths
-                                    div !{val.render(me)}
+                                | !{me.rootPath.render(me)}
+
 
                             div(class="part")
 
