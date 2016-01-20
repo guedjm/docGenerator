@@ -8,22 +8,19 @@ info:
       **Roatripper API** is a REST API developped in node.js dialing with client applications.
 
 paragraphs:
-  - name: Introduction
-    id: intro
+  - title: Introduction
     text: >
       Roadtripper API is a REST API, each request use the **HTTP** protocol.;;;
       Each request paths must be prefixed by the current major version of the api server. Since we are in version **1.-.-**, paths
       must be prefixed by **/v1**;;;
       For example, the url of the login request ( {{/auth/login:get-auth-login}} ) is */v1/auth/login*
 
-  - name: Security
-    id: security
+  - title: Security
     text: >
       The API handle two type of authorization. To know which one you have to implement for a request,
       look at the request TAGs (top-right coner of the request description).
     paragraphs:
-      - name: Client Auth
-        id: client-auth
+      - title: Client Auth
         text: >
           #####Request need to be authenticated by HTTP Basic Authentification
 
@@ -35,8 +32,7 @@ paragraphs:
 
           ```
 
-      - name: User Auth
-        id: user-auth
+      - title: User Auth
         text: >
           ##### Request need to bo authenticated by Access token
 
@@ -52,9 +48,9 @@ paragraphs:
 
 tags:
   - name: Client Auth
-    value: "{{:client-auth}}"
+    value: "{{:paragraphs-security-client-auth}}"
   - name: User Auth
-    value: "{{:user-auth}}"
+    value: "{{:paragraphs-security-user-auth}}"
 
 paths:
   urls:
@@ -73,7 +69,7 @@ paths:
   paths:
     - title: Auth
       id: paths-auth
-      description: >
+      text: >
         Requests related to authorization
       urls:
         - url: /auth/login
@@ -92,7 +88,7 @@ paths:
               responses:
                 - status: 200
                   description: Operation succeed
-                  type: obj-login-reply
+                  type: obj-access-token-reply
               errors:
                 - error-invalid-request
                 - error-client-auth
@@ -129,7 +125,7 @@ paths:
               responses:
                 - status: 200
                   description: Operation success
-                  type: obj-login-reply
+                  type: obj-access-token-reply
               errors:
                 - error-invalid-request
                 - error-client-auth
@@ -174,7 +170,7 @@ paths:
 
     - title: Client
       id: paths-client
-      description: >
+      text: >
         Requests related to clients
       urls:
         - url: /client
@@ -206,7 +202,7 @@ paths:
 
     - title: User
       id: paths-user
-      description: >
+      text: >
         Requests related to users
       urls:
         - url: /user/info
@@ -251,14 +247,14 @@ errors:
     code: 1
     subcode: 1
     message: Request need to be authorized by Client Auth (check documentation for more details)
-    fix: See {{Client Auth paragraph:client-auth}}
+    fix: See {{Client Auth paragraph:paragraphs-security-client-auth}}
 
   - id: error-user-auth
     status: 401
     code: 1
     subcode: 2
     message: Request need to be authorized by User Auth (check documentation for more details)
-    fix: See {{User Auth paragraph:user-auth}}
+    fix: See {{User Auth paragraph:paragraphs-security-user-auth}}
 
   - id: error-expired-token
     status: 401
@@ -272,7 +268,7 @@ errors:
     code: 2
     subcode: 2
     message: Invalid token, please use login again to get a new token
-    fix: See {{User Auth paragraph:user-auth}}
+    fix: See {{User Auth paragraph:paragraphs-security-user-auth}}
 
   - id: error-fb-invalid-token
     status: 401
@@ -299,8 +295,7 @@ errors:
     fix: Server side issue while reading facebook api reply
 
 objects:
-  - id: obj-error
-    name: Error
+  - name: Error
     description: Error object
     obj:
       error:
@@ -308,14 +303,12 @@ objects:
         errorSubCode: 0
         message: ""
 
-  - id: obj-login-reply
-    name: Access token reply
+  - name: Access token reply
     description: The {{/auth/login:get-auth-login}} reply
     obj:
       acess_token: ""
 
-  - id: obj-token-information-reply
-    name: Token information reply
+  - name: Token information reply
     description: The {{/auth/token:get-auth-token}} reply
     obj:
       token:
@@ -330,8 +323,7 @@ objects:
         publicId: ""
         name: ""
 
-  - id: obj-user-info
-    name: User info
+  - name: User info
     obj:
       facebookId: ""
       publicId: ""
@@ -339,8 +331,7 @@ objects:
       lastName: ""
       name: ""
 
-  - id: obj-friend-list
-    name: Friend list
+  - name: Friend list
     obj:
       - facebookId: ""
         publicId: ""

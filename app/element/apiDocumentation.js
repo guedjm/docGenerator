@@ -47,7 +47,7 @@ apiDescription.prototype.parseJSON = function (json) {
 
   if (json.paragraphs) {
     json.paragraphs.forEach(function (elem, i, a) {
-      var p = new paragraphElem(1);
+      var p = new paragraphElem(null);
       p.parseJSON(elem);
       this.paragraphs.push(p);
     }, this)

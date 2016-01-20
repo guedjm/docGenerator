@@ -20,7 +20,7 @@ rootPath.prototype.parseJSON = function (obj) {
 
   if (obj.paths) {
     obj.paths.forEach(function (elem, i, a) {
-      var p = new pathElem();
+      var p = new pathElem(null);
       p.parseJSON(elem);
       this.paths.push(p);
     }, this);

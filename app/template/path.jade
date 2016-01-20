@@ -1,5 +1,6 @@
 h2(id="#{me.id}") !{me.title}
-p !{me.description}
+if (me.text != "")
+    p !{me.text}
 
 each val in me.urls
     div(class="paragraph") !{val.render(doc)}

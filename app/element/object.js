@@ -9,8 +9,8 @@ var object = function () {
 };
 
 object.prototype.parseJSON = function (obj) {
-  this.id = obj.id;
   this.name = obj.name;
+  this.id = "obj-" + this.name.toLocaleLowerCase().replace(/ /g, '-');
   if (obj.description) {
     this.description = utils.getHtmlText(utils.markdownToHtml(obj.description));
   }

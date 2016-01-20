@@ -2,22 +2,32 @@ var jade = require('jade');
 var utils = require(__base + 'utils');
 var urlElem = require(__base + 'element/url');
 
-var path = function () {
-  this.title = "";
+var path = function (parent) {
   this.id = "";
-  this.description = "";
+  this.title = "";
+  this.text = "";
   this.paths = [];
   this.urls = [];
+  this.parent = parent;
 };
 
 path.prototype.parseJSON = function (obj) {
   this.title = obj.title;
-  this.id = obj.id;
-  this.description = obj.description;
+
+  if (obj.text) {
+    this.text = obj.text;
+  }
+
+  if (this.parent == null) {
+    this.id = "paths-" + this.title.toLocaleLowerCase().replace(/ /g, '-');
+  }
+  else {
+    this.id = this.parent.id + '-' + this.title.toLocaleLowerCase().replace(/ /g, '-');
+  }
 
   if (obj.paths) {
     obj.paths.forEach(function (elem, i, a) {
-      var subPath = new path();
+      var subPath = new path(this);
       subPath.parseJSON(elem);
       this.paths.push(subPath);
     }, this);
