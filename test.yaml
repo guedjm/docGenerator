@@ -11,7 +11,10 @@ paragraphs:
   - name: Introduction
     id: intro
     text: >
-      Roadtripper API is a REST API, each request use the **HTTP** protocol.
+      Roadtripper API is a REST API, each request use the **HTTP** protocol.;;;
+      Each request paths must be prefixed by the current major version of the api server. Since we are in version **1.-.-**, paths
+      must be prefixed by **/v1**;;;
+      For example, the url of the login request ( {{/auth/login:get-auth-login}} ) is */v1/auth/login*
 
   - name: Security
     id: security
@@ -45,7 +48,7 @@ paragraphs:
 
           ```
 
-          To obtain an accessToken, use the {{/v1/auth/login:get-v1-auth-login}} route.
+          To obtain an accessToken, use the {{/auth/login:get-auth-login}} route.
 
 tags:
   - name: Client Auth
@@ -73,7 +76,7 @@ paths:
       description: >
         Requests related to authorization
       urls:
-        - url: /v1/auth/login
+        - url: /auth/login
           methods:
             - method: get
               summary: Login the user and reply a accessToken
@@ -95,7 +98,7 @@ paths:
                 - error-client-auth
                 - error-fb-invalid-token
 
-        - url: /v1/auth/token
+        - url: /auth/token
           methods:
             - method: get
               summary: Get information about the current token (included in the request header)
@@ -110,7 +113,7 @@ paths:
                 - error-expired-token
                 - error-wrong-token
 
-        - url: /v1/auth/renew
+        - url: /auth/renew
           methods:
             - method: get
               summary: Get a new access token
@@ -132,7 +135,7 @@ paths:
                 - error-client-auth
                 - error-wrong-token
 
-        - url: /v1/auth/facebooktoken
+        - url: /auth/facebooktoken
           methods:
             - method: get
               tags:
@@ -174,7 +177,7 @@ paths:
       description: >
         Requests related to clients
       urls:
-        - url: /v1/client
+        - url: /client
           methods:
             - method: post
               tags:
@@ -206,7 +209,7 @@ paths:
       description: >
         Requests related to users
       urls:
-        - url: /v1/user/info
+        - url: /user/info
           methods:
             - method: get
               tags:
@@ -221,7 +224,7 @@ paths:
                 - error-expired-token
                 - error-wrong-token
 
-        - url: /v1/user/friend
+        - url: /user/friend
           methods:
             - method: get
               tags:
@@ -261,8 +264,8 @@ errors:
     status: 401
     code: 2
     subcode: 1
-    message: Token expired, please use POST /v1/auth/renew to obtain a new token
-    fix: See {{POST /v1/auth/renew:post-v1-auth-renew}}
+    message: Token expired, please use POST /auth/renew to obtain a new token
+    fix: See {{POST /auth/renew:post-auth-renew}}
 
   - id: error-wrong-token
     status: 401
@@ -275,8 +278,8 @@ errors:
     status: 401
     code: 3
     subcode: 1
-    message: Invalid facebook access token, please update facebook token (POST /v1/auth/facebooktoken)
-    fix: See {{POST /v1/auth/facebooktoken:post-v1-auth-facebooktoken}}
+    message: Invalid facebook access token, please update facebook token (POST /auth/facebooktoken)
+    fix: See {{POST /auth/facebooktoken:post-auth-facebooktoken}}
 
   - id: error-not-found
     status: 404
@@ -307,13 +310,13 @@ objects:
 
   - id: obj-login-reply
     name: Access token reply
-    description: The {{/v1/auth/login:get-v1-auth-login}} reply
+    description: The {{/auth/login:get-auth-login}} reply
     obj:
       acess_token: ""
 
   - id: obj-token-information-reply
     name: Token information reply
-    description: The {{/v1/auth/token:get-v1-auth-token}} reply
+    description: The {{/auth/token:get-auth-token}} reply
     obj:
       token:
         token: ""
