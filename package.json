@@ -4,6 +4,14 @@
   "description": "Tools to generate html page (api definition)",
   "author": "Maxime Guedj",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guedjm/docGenerator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/guedjm/docGenerator/issues"
+  },
+  "homepage": "https://github.com/guedjm/docGenerator#readme",
   "dependencies": {
     "html": "0.0.10",
     "jade": "^1.11.0",
